@@ -1,16 +1,18 @@
 import Head from "next/head";
+import Link from "next/link";
 import Layout, { siteTitle } from "../components/layout";
 import utilStyles from "../styles/utils.module.css";
 import { getSortedPostsData } from "../lib/posts";
+import { GetStaticProps } from "next";
 
-export async function getStaticProps() {
+export const getStaticProps: GetStaticProps = async (context) => {
   const allPostsData = getSortedPostsData();
   return {
     props: {
       allPostsData,
     },
   };
-}
+};
 /*
 Pages are associated with a route based on their file name. For example, in development:
 
@@ -31,7 +33,7 @@ export default function Home({ allPostsData }) {
         <ul className={utilStyles.list}>
           {allPostsData.map(({ id, date, title }) => (
             <li className={utilStyles.listItem} key={id}>
-              {title}
+              <Link href={`/posts/${id}`}>{title}</Link>
               <br />
               {id}
               <br />

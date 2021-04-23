@@ -4,6 +4,7 @@ import Head from "next/head";
 import { getAllPostIds, getPostData } from "../../lib/posts";
 
 import utilStyles from "../../styles/utils.module.css";
+import { GetStaticPaths, GetStaticProps } from "next";
 
 /*
  getStaticProps only runs on the server-side. It will never run on the client-side. It won’t even be included in the JS bundle for the browser.
@@ -13,14 +14,14 @@ import utilStyles from "../../styles/utils.module.css";
 
   One of the reasons for this restriction is that React needs to have all the required data before the page is rendered.
 */
-export async function getStaticProps({ params }) {
+export const getStaticProps: GetStaticProps = async ({ params }) => {
   const postData = await getPostData(params.id);
   return {
     props: {
       postData,
     },
   };
-}
+};
 
 /*
 If a page has dynamic routes (documentation) and uses getStaticProps it needs to define a list of paths that have to be rendered to HTML at build time.
@@ -32,21 +33,29 @@ i.e. paths: [
     { params: { id: '2' } }
   ],
 */
-export async function getStaticPaths() {
+export const getStaticPaths: GetStaticPaths = async () => {
   // we determine our list of paths to pre-render here:
   const paths = getAllPostIds();
   return {
     paths,
     fallback: false,
   };
-}
+};
 
 /*
 First, we’ll create a page called [id].js under pages/posts. Pages that begin with [ and end with ] are dynamic routes in Next.js.
 
 In pages/posts/[id].js, we’ll write code that will render a post page — just like other pages we’ve created.
 */
-export default function Post({ postData }) {
+export default function Post({
+  postData,
+}: {
+  postData: {
+    title: string;
+    date: string;
+    contentHtml: string;
+  };
+}) {
   return (
     <Layout>
       <Head>
