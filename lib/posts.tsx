@@ -27,15 +27,16 @@ export function getSortedPostsData() {
     };
   });
   // Sort posts by date
-  return allPostsData.sort((a, b) => {
-    if (a.date < b.date) {
-      return 1;
-    } else {
-      return -1;
+  return allPostsData.sort(
+    (a: { [key: string]: any }, b: { [key: string]: any }) => {
+      if (a.date < b.date) {
+        return 1;
+      } else {
+        return -1;
+      }
     }
-  });
+  );
 }
-
 /*
 Important: The returned list is not just an array of strings — it must be an array of objects that look like the comment.
  Each object must have the params key and contain an object with the id key (because we’re using [id] in the file name). 
