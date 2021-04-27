@@ -1,27 +1,43 @@
 import Head from "next/head";
 import Image from "next/image";
-import styles from "./layout.module.css";
 import utilStyles from "../styles/utils.module.css";
 import Link from "next/link";
+import styled from "styled-components";
 
 const name = "Marcus Plienegger";
-export const siteTitle = "Next.js Sample Website";
+export const siteTitle = "My Profile";
 
-export default function Layout({
+const LayoutContainer = styled.div`
+  padding: 0 20px;
+`;
+
+const LayoutHeader = styled.header`
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  background: var(--color-primary);
+
+  h1 {
+    font-size: 5rem;
+    line-height: 1.2;
+    font-weight: 800;
+    letter-spacing: -0.05rem;
+    margin: 1rem 0;
+  }
+`;
+
+export const Layout = ({
   children,
   home,
 }: {
   children: React.ReactNode;
   home?: boolean;
-}) {
+}) => {
   return (
-    <div className={styles.container}>
+    <LayoutContainer>
       <Head>
         <link rel="icon" href="/favicon.ico" />
-        <meta
-          name="description"
-          content="Learn how to build a personal website using Next.js"
-        />
+        <meta name="description" content="My developer profile" />
         <meta
           property="og:image"
           content={`https://og-image.vercel.app/${encodeURI(
@@ -31,9 +47,10 @@ export default function Layout({
         <meta name="og:title" content={siteTitle} />
         <meta name="twitter:card" content="summary_large_image" />
       </Head>
-      <header className={styles.header}>
+      <LayoutHeader>
         {home ? (
           <>
+            <h1>{name}</h1>
             <Image
               priority
               src="/images/profile.png"
@@ -42,7 +59,6 @@ export default function Layout({
               width={144}
               alt={name}
             />
-            <h1 className={utilStyles.heading2Xl}>{name}</h1>
           </>
         ) : (
           <>
@@ -65,15 +81,15 @@ export default function Layout({
             </h2>
           </>
         )}
-      </header>
+      </LayoutHeader>
       <main>{children}</main>
       {!home && (
-        <div className={styles.backToHome}>
+        <div>
           <Link href="/">
             <a>← Back to home</a>
           </Link>
         </div>
       )}
-    </div>
+    </LayoutContainer>
   );
-}
+};
