@@ -3,9 +3,9 @@ import { createGlobalStyle, ThemeProvider } from "styled-components";
 
 const GlobalStyle = createGlobalStyle`
  html {
-    --color-text: black;
-    --color-background: white;
-    --color-primary: rebeccapurple;
+    --color-text: #141414;
+    --color-background: #fffefc;
+    --color-highlight: #391cdd;
   }
 
   /* Box sizing rules */
@@ -27,6 +27,14 @@ const GlobalStyle = createGlobalStyle`
   dl,
   dd {
     margin: 0;
+  }
+
+  @font-face {
+    font-family: wotfard;
+    src: url('/fonts/wotfard/wotfard-medium-webfont.woff2');
+    font-style: medium;
+    font-weight: 500;
+    font-display: swap;
   }
 
   /* Remove list styles on ul, ol elements with a list role, which suggests default styling will be removed */
@@ -84,9 +92,10 @@ const GlobalStyle = createGlobalStyle`
   }
 `;
 
+// todo create theme variants
 const theme = {
   colors: {
-    background: "white",
+    background: "black",
     primary: "#0070f3",
   },
 };

@@ -1,0 +1,1 @@
+export const esi = `- _this_ is ***some stuff*** written using MDX`;
