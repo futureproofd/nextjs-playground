@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev -p 3001",
     "debug": "NODE_OPTIONS='--inspect' next dev",
     "build": "next build",
     "start": "next start"
@@ -12,12 +12,13 @@
     "date-fns": "^2.21.1",
     "gray-matter": "^4.0.2",
     "next": "^10.0.0",
+    "next-mdx-remote": "^2.1.4",
     "react": "17.0.1",
     "react-dom": "17.0.1",
     "remark": "^13.0.0",
+    "remark-gfm": "^1.0.0",
     "remark-html": "^13.0.1",
-    "styled-components": "^5.2.3",
-    "next-mdx-remote": "^2.1.4"
+    "styled-components": "^5.2.3"
   },
   "devDependencies": {
     "@types/mdx-js__react": "^1.5.3",

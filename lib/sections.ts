@@ -24,10 +24,10 @@ const walk = (dir) => {
     file = dir + '/' + file;
     var stat = fs.statSync(file);
     if (stat && stat.isDirectory()) {
-      /* Recurse into a subdirectory */
+      // Recurse into sub-dir
       results = results.concat(walk(file));
     } else {
-      /* Is a file */
+      // It's a file
       results.push(file);
     }
   });
@@ -46,17 +46,8 @@ export const getAllSectionContent = async () => {
     // Read markdown file as string
     const fileContents = fs.readFileSync(fileName, "utf8");
     // Use gray-matter to parse each section details metadata section
-    //  const matterResult = matter(fileContents);
-
     const { content, data } = matter(fileContents)
-
-    // Use remark to convert markdown into HTML string
-    const processedContent = await remark()
-      .use(html)
-      .process(content);
-
-    const contentHtml = processedContent.toString();
-
+    // Render MDX files with components to string
     const mdxSource = await renderToString(content, { components, scope: data })
 
     // Combine the data with the id
