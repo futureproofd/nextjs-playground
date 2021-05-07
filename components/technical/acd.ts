@@ -1,5 +1,5 @@
 // prettier-ignore
-export const esi = `- _this_ is ***some stuff*** written using MDX
+export const acd = `- _this_ is ***some stuff*** written using MDX
   - another point
   - another
 

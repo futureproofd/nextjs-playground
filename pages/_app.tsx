@@ -3,9 +3,11 @@ import { createGlobalStyle, ThemeProvider } from "styled-components";
 
 const GlobalStyle = createGlobalStyle`
  html {
-    --color-text: #141414;
+    --color-text: #1b1b1b;
     --color-background: #fffefc;
     --color-highlight: #391cdd;
+    --color-subtleHighlight: #9185d4; 
+    --color-link: #391cdd;
   }
 
   /* Box sizing rules */
@@ -51,8 +53,8 @@ const GlobalStyle = createGlobalStyle`
   /* Set core body defaults */
   body {
     min-height: 100vh;
-    text-rendering: optimizeSpeed;
-    line-height: 1.5;
+    text-rendering: optimizeLegibility;
+    line-height: 1.6;
   }
 
   /* A elements that don't have a class get default styles */

@@ -4,6 +4,7 @@ import Link from "next/link";
 import { GetStaticProps } from "next";
 import { getAllSectionContent } from "../lib/sections";
 import { Layout, siteTitle } from "../components/Layout";
+import { DateRange } from "../components/DateRange";
 import { Section } from "../components/Section";
 import hydrate from "next-mdx-remote/hydrate";
 import { Collapsible } from "../components/Collapsible";
@@ -18,9 +19,9 @@ export enum Sections {
   WORK = "Work",
 }
 
+// List of React components to render within MDX
 const components: MdxRemote.Components = { Collapsible };
 
-const sectionTitles = getSectionTitles();
 export const getStaticProps: GetStaticProps = async (context) => {
   const allSectionsContent = await getAllSectionContent();
   return {
@@ -30,20 +31,36 @@ export const getStaticProps: GetStaticProps = async (context) => {
   };
 };
 
-/*hydrate consumes the output of renderToString as well as the same components 
-  argument as renderToString. Its result can be rendered directly into your component. 
-  This function will initially render static content, and hydrate it when the browser isn't 
-  busy with higher priority tasks.
+const renderSectionMetaData = (section: Sections, metaData) => {
+  const { id, startDate, endDate, title, position } = metaData;
+  return (
+    <div className="metaData">
+      <Link href={`/${section.toLowerCase()}/${id}`}>{title}</Link>
+      <h1>{position}</h1>
+      <DateRange startDate={startDate} endDate={endDate} />
+    </div>
+  );
+};
+
+/*  hydrate consumes the output of renderToString as well as the same components 
+    argument as renderToString. Its result can be rendered directly into your component. 
+    This function will initially render static content, and hydrate it when the browser isn't 
+    busy with higher priority tasks.
 */
-const renderSectionParts = (section: Sections, allSectionsContent) => {
+const renderSectionContent = (section: Sections, allSectionsContent) => {
   return allSectionsContent
     .filter((each) => each.section === section.toLowerCase())
     .map(({ id, startDate, endDate, title, position, contentHtml }) => (
       <div key={id}>
-        <Link href={`/${section.toLowerCase()}/${id}`}>{title}</Link>
-        <h1>{position}</h1>
-        <time>{`${startDate} ${endDate ? "➪ " + endDate : " ➪ Now"}`}</time>
-        <div>{hydrate(contentHtml, { components })}</div>
+        {renderSectionMetaData(section, {
+          startDate,
+          endDate,
+          title,
+          position,
+        })}
+        <div className="sectionContentsContainer">
+          {hydrate(contentHtml, { components })}
+        </div>
       </div>
     ));
 };
@@ -62,7 +79,7 @@ export default function Home({ allSectionsContent }) {
       </Head>
       <link
         rel="preload"
-        href="/fonts/wotfard/wotfard-medium-webfont.woff2"
+        href="/fonts/wotfard/wotfard-regular-webfont.woff2"
         as="font"
         crossOrigin=""
       />
@@ -73,9 +90,9 @@ export default function Home({ allSectionsContent }) {
         crossOrigin=""
       />
       <div>
-        {sectionTitles.map((section: string) => (
+        {getSectionTitles().map((section: string) => (
           <Section title={section}>
-            {renderSectionParts(section as Sections, allSectionsContent)}
+            {renderSectionContent(section as Sections, allSectionsContent)}
           </Section>
         ))}
       </div>

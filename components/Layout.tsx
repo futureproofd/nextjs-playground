@@ -9,6 +9,10 @@ const name = "- Marcus Plienegger -";
 const mainName = `DEV/${format(new Date(), "yyyy")}`;
 export const siteTitle = "Marcus Plienegger";
 
+const SMain = styled.main`
+  margin-top: 32px;
+`;
+
 const LayoutContainer = styled.div`
   padding: 0;
 `;
@@ -41,9 +45,14 @@ const LayoutHeader = styled.header`
 const LayoutImageHeader = styled.div`
   display: flex;
   padding: 0;
-  background-image: radial-gradient(#000000 20%, transparent 5%);
-  background-size: 6px 6px;
-  border-radius: 8px;
+  background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 1px,
+      white 1px,
+      white 4px
+    ),
+    linear-gradient(to bottom, var(--color-highlight), black, darkgrey, white);
   justify-content: center;
 `;
 
@@ -106,7 +115,7 @@ export const Layout = ({
           alt={name}
         />
       </LayoutImageHeader>
-      <main>{children}</main>
+      <SMain>{children}</SMain>
       {!home && (
         <div>
           <Link href="/">
