@@ -4,15 +4,15 @@ import matter from "gray-matter";
 import remark from "remark";
 import html from "remark-html";
 import renderToString from 'next-mdx-remote/render-to-string'
-
 import { Collapsible } from '../components/Collapsible';
+import { GalleryImage } from '../components/GalleryImage';
 import { MdxRemote } from "next-mdx-remote/types";
 
 // Custom components/renderers to pass to MDX.
 // Since the MDX files aren't loaded by webpack, they have no knowledge of how
 // to handle import statements. Instead, you must include components in scope
 // here.
-const components: MdxRemote.Components = { Collapsible };
+const components: MdxRemote.Components = { Collapsible, GalleryImage };
 
 const sectionsDirectory = path.join(process.cwd(), "sections");
 
@@ -92,5 +92,3 @@ export const getSectionBody = (section, id) => {
 
   return sectionBody || 'none';
 }
-
-

@@ -1,9 +1,10 @@
 import ReactMarkdown from "react-markdown";
-import { acd } from "./technical/acd";
-import { esi } from "./technical/esi";
-import { me } from "./technical/me";
+import acd from "./technical/acd.technical.mdx";
+import esi from "./technical/esi.technical.mdx";
+import me from "./technical/me.technical.mdx";
 import gfm from "remark-gfm";
 import styled from "styled-components";
+import CodeBlock from "./technical/CodeBlock";
 
 const STechnicalDetails = styled.div`
   background-color: whitesmoke;
@@ -17,11 +18,27 @@ const STechnicalDetails = styled.div`
   p {
     margin-top: 18px;
   }
+
+  /* Code snippets */
+  pre {
+    border-radius: 4px;
+    border: 1px dotted darkgray;
+  }
+
+  a::after {
+    background: transparent url(/images/external_link.svg) 0 0 no-repeat;
+    background-size: 12px;
+    content: "";
+    display: inline-block;
+    height: 12px;
+    margin-left: 3px;
+    width: 12px;
+  }
 `;
 
 const SSummaryDetails = styled.summary`
   color: var(--color-link);
-  font-weight: 800;
+  font-weight: 400;
   padding: 16px;
 `;
 
@@ -40,17 +57,19 @@ export const Collapsible = ({ props }) => {
         return "nothing to see here.";
     }
   };
+
   return (
     <details>
       <SSummaryDetails>
         {title || "Technical Details for the curious"}
       </SSummaryDetails>
       <STechnicalDetails>
-        {section !== "me" ? <h1>How it's built</h1> : null}
         {/* Additional markdown support for tables and other elements via gfm */}
-        <ReactMarkdown plugins={[gfm]}>
-          {getTechnicalMarkup(section)}
-        </ReactMarkdown>
+        <ReactMarkdown
+          plugins={[gfm]}
+          renderers={{ code: CodeBlock }}
+          children={getTechnicalMarkup(section)}
+        />
       </STechnicalDetails>
     </details>
   );

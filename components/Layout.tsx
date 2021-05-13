@@ -50,7 +50,7 @@ const LayoutImageHeader = styled.div`
       transparent,
       transparent 1px,
       white 1px,
-      white 4px
+      white 6px
     ),
     linear-gradient(to bottom, var(--color-highlight), black, darkgrey, white);
   justify-content: center;

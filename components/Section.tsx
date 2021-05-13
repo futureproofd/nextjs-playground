@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-const SectionContainer = styled.section`
+const SSectionContainer = styled.section`
   display: flex;
   align-items: flex-start;
   font-family: wotfard;
@@ -9,7 +9,7 @@ const SectionContainer = styled.section`
   margin: 0 32px 0 0;
 `;
 
-const SectionTitle = styled.div`
+const SSectionTitle = styled.div`
   position: sticky;
   border-top: 1px solid;
   border-width: thin;
@@ -18,6 +18,7 @@ const SectionTitle = styled.div`
 
   h2 {
     color: var(--color-black);
+    font-weight: 400;
     font-size: 2.5rem;
     font-weight: 800;
     letter-spacing: -2px;
@@ -27,7 +28,7 @@ const SectionTitle = styled.div`
   }
 `;
 
-const SectionContents = styled.article`
+const SSectionContents = styled.article`
   font-weight: 100;
   margin: 0 32px 0 0;
 
@@ -40,6 +41,16 @@ const SectionContents = styled.article`
     border-image: linear-gradient(to top, var(--color-subtleHighlight), #e0e0e0)
       1;
     background-image: linear-gradient(to right, whitesmoke, white);
+
+    a::after {
+      background: transparent url(/images/external_link.svg) 0 0 no-repeat;
+      background-size: 16px;
+      content: "";
+      display: inline-block;
+      height: 16px;
+      margin-left: 6px;
+      width: 16px;
+    }
   }
 
   .sectionContentsContainer {
@@ -53,19 +64,33 @@ const SectionContents = styled.article`
         white
       )
       1;
+    font-weight: 500;
+    font-family: Helvetica, Arial, sans-serif;
 
     a {
-      font-weight: bolder;
+      font-weight: 500;
       font-size: 1rem;
-      font-style: italic;
       color: var(--color-link);
+    }
+
+    a::after {
+      background: transparent url(/images/external_link.svg) 0 0 no-repeat;
+      background-size: 12px;
+      content: "";
+      display: inline-block;
+      height: 12px;
+      margin-left: 3px;
+      width: 12px;
     }
   }
 
   h1 {
     color: var(--color-highlight);
     font-size: 1rem;
-    font-weight: 100;
+  }
+
+  h4 {
+    margin-bottom: 6px;
   }
 
   time {
@@ -91,15 +116,32 @@ const SectionContents = styled.article`
   p:not(:first-child) {
     margin-top: 18px;
   }
+
+  p {
+    margin-bottom: 18px;
+  }
+
+  li,
+  ul {
+    margin: 4px 0;
+  }
+
+  li:last-child {
+    margin-bottom: 18px;
+  }
+
+  ul li ul li:last-child {
+    margin-bottom: 4px;
+  }
 `;
 
 export const Section = ({ title, children }) => {
   return (
-    <SectionContainer>
-      <SectionTitle>
+    <SSectionContainer>
+      <SSectionTitle>
         <h2>/{title}</h2>
-      </SectionTitle>
-      <SectionContents>{children}</SectionContents>
-    </SectionContainer>
+      </SSectionTitle>
+      <SSectionContents>{children}</SSectionContents>
+    </SSectionContainer>
   );
 };
