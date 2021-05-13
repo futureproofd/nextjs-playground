@@ -22,7 +22,9 @@
     "next-env.d.ts",
     "mdx.d.ts",
     "**/*.ts",
-    "**/*.tsx"
+    "**/*.tsx", "components/technical/CodeBlock.tsx"  ],
+  "files": [
+    "markdown.types.d.ts"
   ],
   "exclude": [
     "node_modules"

@@ -8,6 +8,7 @@ import { DateRange } from "../components/DateRange";
 import { Section } from "../components/Section";
 import hydrate from "next-mdx-remote/hydrate";
 import { Collapsible } from "../components/Collapsible";
+import { GalleryImage } from "../components/GalleryImage";
 import { MdxRemote } from "next-mdx-remote/types";
 
 export const getSectionTitles = (): string[] => {
@@ -20,7 +21,7 @@ export enum Sections {
 }
 
 // List of React components to render within MDX
-const components: MdxRemote.Components = { Collapsible };
+const components: MdxRemote.Components = { Collapsible, GalleryImage };
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const allSectionsContent = await getAllSectionContent();
@@ -32,10 +33,14 @@ export const getStaticProps: GetStaticProps = async (context) => {
 };
 
 const renderSectionMetaData = (section: Sections, metaData) => {
-  const { id, startDate, endDate, title, position } = metaData;
+  const { id, startDate, endDate, title, position, url } = metaData;
   return (
-    <div className="metaData">
-      <Link href={`/${section.toLowerCase()}/${id}`}>{title}</Link>
+    <div key={id} className="metaData">
+      {section === Sections.ABOUT ? (
+        <h3>{title}</h3>
+      ) : (
+        <Link href={url || "/"}>{title}</Link>
+      )}
       <h1>{position}</h1>
       <DateRange startDate={startDate} endDate={endDate} />
     </div>
@@ -50,13 +55,14 @@ const renderSectionMetaData = (section: Sections, metaData) => {
 const renderSectionContent = (section: Sections, allSectionsContent) => {
   return allSectionsContent
     .filter((each) => each.section === section.toLowerCase())
-    .map(({ id, startDate, endDate, title, position, contentHtml }) => (
+    .map(({ id, startDate, endDate, title, position, url, contentHtml }) => (
       <div key={id}>
         {renderSectionMetaData(section, {
           startDate,
           endDate,
           title,
           position,
+          url,
         })}
         <div className="sectionContentsContainer">
           {hydrate(contentHtml, { components })}

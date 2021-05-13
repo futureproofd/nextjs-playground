@@ -1,0 +1,52 @@
+  #### Frontend ####
+
+  I wrote an [article](https://medium.com/@marcusp/extending-modules-with-dojo-toolkit-139b666e18a3) about extending Dojo Toolkit UI components. I originally wrote it to cement my knowledge at the time. 
+  That, and the implementation of the framework I was working with was complex and undocumented. I wanted to make sure I got it down in writing for myself and for others to reference.
+  
+  Essentially what it's comprised of is:  
+
+  - A frontend placeholder for the Widget:
+  
+  ```HTML
+    <div id="placeHolderControl" runat="server" />
+  ```
+  - Hooking into .Net lifecycle methods (_i.e. Page_Load()_) to call UI components via AMD
+  - The AMD loader is providing our dependencies asynchronously for the subsequent function declaration
+
+  ```JS
+    // Use AMD module.
+    require(["lib/AmdModule"], amdModule => {
+        amdModule.doSomething();
+      });
+    };
+  ```
+  
+  - The full implementation looks as follows:
+    - We invoke startup() to initialize our UI Widget on our placeholder control
+
+  ```C#
+  protected void Page_Load(object sender, EventArgs e){
+    var script = new StringBuilder();
+    // AMD Module dependencies.
+    script.AppendLine("@ require(['lib/AmdModule'], (AmdModule) => {")
+    
+    string baseScript = string.Format("window.setTimeout(() => {"+
+      "const module = new AmdModule({placeHolder: {0}}); "+
+      "module.startup();"+
+      "}, 1);",
+      placeHolderControl.CliendID
+    )
+  }
+
+  ```
+  Defining a custom UI Widget to invoke (as shown above) via extending the Dojo toolkit is an exercise in itself; 
+  Using AMD's _define_ method and providing a dependency array of base widgit(s) is the standard way for creating a new control. 
+  What we're essentially doing is extending base objects via prototypal inheritance. The article explains this in detal.  
+
+  This is by no means ideal, but sometimes we're stuck using the tools provided. 
+  It's worth noting that we've come a long way in writing Javascript modules yet it's always sobering to look back on earlier implementations.  
+
+  #### React implementation ####
+
+  The backend data is retrieved via [SData Javascript library](https://github.com/Sage/SDataJavaScriptClientLib) to an NHibernate ORM layer that exposes the SQL Database.
+  Writing functional components on the frontend using the native fetch API is a preferable to the above.

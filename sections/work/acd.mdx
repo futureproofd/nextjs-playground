@@ -1,15 +1,29 @@
 ---
 title: "Advanced Chemistry Development"
+url: "https://www.acdlabs.com"
 position: "Software Developer"
 startDate: "2012-01-01"
 endDate: "2020-12-01"
 ---
 
-Next.js has two forms of pre-rendering: **Static Generation** and **Server-side Rendering**. The difference is in **when** it generates the HTML for a page.
+My primary focus was refactoring an internal legacy software base, originally written in VBScript, to a C# backend Web Application. Many iterations and proposals led to the continual evolution of the software 
+including, but not limited to a **React** implementation. Here are somesome of the highlights and features I worked on:  
 
-- **Static Generation** is the pre-rendering method that generates the HTML at **build time**. The pre-rendered HTML is then _reused_ on each request.
-- **Server-side Rendering** is the pre-rendering method that generates the HTML on **each request**.
+#### Frontend to Backend ####  
 
-Importantly, Next.js lets you **choose** which pre-rendering form to use for each page. You can create a "hybrid" Next.js app by using Static Generation for most pages and using Server-side Rendering for others.
+- Migrated entire legacy VBScript code-base to a C# Web Application
+  - ASP.NET Framework running a Javascript frontend (primarily [Dojo Toolkit](https://dojotoolkit.org/))
+  - Backend implementation required writing all new C# [DLL](https://en.wikipedia.org/wiki/Dynamic-link_library) libraries for business logic
+- Migrated user forms to use React for Lead processing (a process to convert potential Leads into Contacts)
+  - Redux state management, including Thunk middleware for API calls via [SData](https://sage.github.io/SData-2.0/)
+  - Local state management via React Class-based components
+
+#### Databases ####  
+
+- Created Relational Database Stored Procedures, Functions, and Views via [T-SQL](https://en.wikipedia.org/wiki/Transact-SQL)
+  - Mainly used for retriving custom views on the frontend
+    - Using an ORM Layer via [NHibernate](https://en.wikipedia.org/wiki/NHibernate)
+  - Also used for gathering complex analytics data for targeting opportunities
+
 
 <Collapsible props={{ section: "acd" }} />
