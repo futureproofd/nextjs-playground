@@ -5,18 +5,20 @@ import consoleDesc from "./technical/metadata/esi.console.desc.mdx";
 
 const SImage = styled.article`
   display: flex;
-  margin: 16px 0px 16px 8px;
-  padding: 8px;
+  margin: 6px;
+  padding: 16px;
   width: fit-content;
 `;
 
 const SGalleryDescription = styled.section`
-  background-image: linear-gradient(to right, #f6f6f6, white, white, white);
+  border-width: thin;
+  border-style: hidden hidden hidden solid;
+  border-color: var(--color-subtleHighlight);
   display: flex;
-  margin: 16px 8px 16px 0;
-  padding: 16px;
+  margin: 24px;
+
   ul {
-    font-size: 0.9rem;
+    font-size: 0.8rem;
   }
 `;
 

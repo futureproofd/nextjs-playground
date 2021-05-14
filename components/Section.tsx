@@ -64,7 +64,8 @@ const SSectionContents = styled.article`
         white
       )
       1;
-    font-weight: 500;
+    font-style: bold;
+    font-weight: 300;
     font-family: Helvetica, Arial, sans-serif;
 
     a {
@@ -90,7 +91,7 @@ const SSectionContents = styled.article`
   }
 
   h4 {
-    margin-bottom: 6px;
+    margin: 6px 0;
   }
 
   time {

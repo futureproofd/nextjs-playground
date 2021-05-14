@@ -10,7 +10,7 @@ const STechnicalDetails = styled.div`
   background-color: whitesmoke;
   border: 1px solid var(--color-subtleHighlight);
   border-width: thin;
-  border-radius: 3px;
+  border-radius: 2px;
   padding: 24px;
   margin-top: 12px;
   margin-left: 32px;

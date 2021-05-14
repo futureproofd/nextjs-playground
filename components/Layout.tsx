@@ -44,7 +44,6 @@ const LayoutHeader = styled.header`
 
 const LayoutImageHeader = styled.div`
   display: flex;
-  padding: 0;
   background: repeating-linear-gradient(
       0deg,
       transparent,
