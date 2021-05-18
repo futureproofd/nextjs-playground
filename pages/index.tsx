@@ -25,6 +25,7 @@ const components: MdxRemote.Components = { Collapsible, GalleryImage };
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const allSectionsContent = await getAllSectionContent();
+  // TODO: get github projects and attach to props
   return {
     props: {
       allSectionsContent,

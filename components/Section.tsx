@@ -92,6 +92,8 @@ const SSectionContents = styled.article`
 
   h4 {
     margin: 6px 0;
+    color: darkslategray;
+    font-style: italic;
   }
 
   time {

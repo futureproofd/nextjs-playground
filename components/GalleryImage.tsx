@@ -19,6 +19,7 @@ const SGalleryDescription = styled.section`
 
   ul {
     font-size: 0.8rem;
+    font-style: italic;
   }
 `;
 
