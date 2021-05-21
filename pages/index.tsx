@@ -12,12 +12,13 @@ import { GalleryImage } from "../components/GalleryImage";
 import { MdxRemote } from "next-mdx-remote/types";
 
 export const getSectionTitles = (): string[] => {
-  return ["About", "Work", "Projects", "Interests", "Links"];
+  return ["About", "Work", "Projects"];
 };
 
 export enum Sections {
   ABOUT = "About",
   WORK = "Work",
+  PROJECTS = "Projects",
 }
 
 // List of React components to render within MDX
