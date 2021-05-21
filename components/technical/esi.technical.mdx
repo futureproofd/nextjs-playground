@@ -1,3 +1,59 @@
-  #### Frontend ####
+#### Frontend ####
 
-some stuff here.
+One interesting feature that isn't React-specific, but rather relies on the usage of Javascript classes and decorators, was to provide a class-based Redux store
+to the application. The Redux abstraction itself [(easy-peasy)](https://easy-peasy.dev/) isn't central to the technique, but some of it's API methods will appear
+in the following example.  
+
+We first start by creating the store:
+
+```JS
+export const store = createStore({
+  app: new AppStore(),
+  resource: new ResourceStore()
+});
+```
+
+Looking a little deeper into the class instantiations themselves, we can see on *resource store* that it's comprised of many additional objects:  
+
+```JS
+export class ResourceStore {
+  public user = new UserResource();
+  public group = new GroupResource();
+//...no limits
+}
+```
+
+Drilling into the UserResource class, we can see the use of *decorators* in action. The *@GET* decorator decorates our target object with a 
+config property that describes the API request type (GET) and the endpoint (/:user) id argument. The *@api* decorator describes the base path for all defined API
+requests (in this case /api/user/:user).
+
+```JS
+@api('/api/user')
+export class UserResource extends Resource<User> {
+
+  @GET('/:user')
+  public get = thunk<UserResource, void, any, StoreModel>(
+    async (actions, payload, { meta }) => {
+      return actions
+        .send({ meta })
+        .then(actions.setTarget)
+        .catch((error) => null);
+    }
+  );
+```
+
+After the class method is decorated, we call the send action from our Resource Actions (note that UserResource extends Resource, which is where the send method is defined).
+Since the *send* method is an asynchronous API request, we define it as a *thunk*.
+
+Utimately, the thunk dispatches another request thunk (defined on our AppStore) which includes all the metadata to make our request (route, path, payload). From here we can do anything with the response;
+We could display a success/error Alert or toggle loading. Essentially we're *fetching* the request and returning it.
+
+```JS
+  public send = thunk<Resource, any, any, StoreModel>(
+    (actions, { payload, meta }, { dispatch }) => {
+      const resourceAction = meta.path[2];
+      const { method, route } = this.config[resourceAction];
+      return dispatch.app.request({ route, method, payload, meta });
+    }
+  );
+```

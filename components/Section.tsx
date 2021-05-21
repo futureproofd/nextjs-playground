@@ -13,7 +13,7 @@ const SSectionTitle = styled.div`
   position: sticky;
   border-top: 1px solid;
   border-width: thin;
-  top: 0;
+  top: 60px;
   border-image: linear-gradient(to left, #e0e0e0, white) 1;
 
   h2 {
@@ -23,7 +23,7 @@ const SSectionTitle = styled.div`
     font-weight: 800;
     letter-spacing: -2px;
     line-height: 1;
-    margin: 16px 0 0 16px;
+    margin: 16px 0 16px 16px;
     width: 225px;
   }
 `;
@@ -64,8 +64,9 @@ const SSectionContents = styled.article`
         white
       )
       1;
-    font-weight: 500;
+    font-weight: 300;
     font-family: Helvetica, Arial, sans-serif;
+    color: var(--color-text);
 
     a {
       font-weight: 500;
@@ -90,11 +91,13 @@ const SSectionContents = styled.article`
   }
 
   h4 {
-    margin-bottom: 6px;
+    margin: 6px 0;
+    color: var(--color-subText);
+    font-style: italic;
   }
 
   time {
-    color: darkslategray;
+    color: var(--color-subText);
     font-size: 0.9rem;
     font-style: italic;
     font-weight: 100;

@@ -3,7 +3,8 @@ import { createGlobalStyle, ThemeProvider } from "styled-components";
 
 const GlobalStyle = createGlobalStyle`
  html {
-    --color-text: #1b1b1b;
+    --color-text: #1e1e1e;
+    --color-subText: #474747;
     --color-background: #fffefc;
     --color-highlight: #391cdd;
     --color-subtleHighlight: #9185d4; 
@@ -36,7 +37,7 @@ const GlobalStyle = createGlobalStyle`
     src: url('/fonts/wotfard/wotfard-medium-webfont.woff2');
     font-style: medium;
     font-weight: 500;
-    font-display: swap;
+    font-display: auto;
   }
 
   /* Remove list styles on ul, ol elements with a list role, which suggests default styling will be removed */
@@ -107,7 +108,7 @@ export default function App({ Component, pageProps }: AppProps) {
     <>
       <ThemeProvider theme={theme}>
         <GlobalStyle />
-        <Component {...pageProps} />;
+        <Component {...pageProps} />
       </ThemeProvider>
     </>
   );
