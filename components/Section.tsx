@@ -13,7 +13,7 @@ const SSectionTitle = styled.div`
   position: sticky;
   border-top: 1px solid;
   border-width: thin;
-  top: 0;
+  top: 60px;
   border-image: linear-gradient(to left, #e0e0e0, white) 1;
 
   h2 {
@@ -64,9 +64,9 @@ const SSectionContents = styled.article`
         white
       )
       1;
-    font-style: bold;
     font-weight: 300;
     font-family: Helvetica, Arial, sans-serif;
+    color: var(--color-text);
 
     a {
       font-weight: 500;
@@ -92,12 +92,12 @@ const SSectionContents = styled.article`
 
   h4 {
     margin: 6px 0;
-    color: darkslategray;
+    color: var(--color-subText);
     font-style: italic;
   }
 
   time {
-    color: darkslategray;
+    color: var(--color-subText);
     font-size: 0.9rem;
     font-style: italic;
     font-weight: 100;

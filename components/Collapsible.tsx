@@ -40,6 +40,7 @@ const SSummaryDetails = styled.summary`
   color: var(--color-link);
   font-weight: 400;
   padding: 16px;
+  cursor: pointer;
 `;
 
 export const Collapsible = ({ props }) => {
