@@ -23,7 +23,7 @@ const SSectionTitle = styled.div`
     font-weight: 800;
     letter-spacing: -2px;
     line-height: 1;
-    margin: 16px 0 0 16px;
+    margin: 16px 0 16px 16px;
     width: 225px;
   }
 `;

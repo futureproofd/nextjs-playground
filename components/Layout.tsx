@@ -22,10 +22,12 @@ const SLayoutHeader = styled.header`
   display: flex;
   flex-direction: column;
   align-items: center;
-  z-index: 3;
   top: 0;
   right: 0;
   left: 0;
+
+  transition: all 0.8s;
+  ${(props) => (props.fade ? "opacity: 0.2" : "opacity:1")};
 
   /* Big 202X Logo */
   h1 {
@@ -35,7 +37,6 @@ const SLayoutHeader = styled.header`
     line-height: 1;
     letter-spacing: -16px;
     font-weight: 800;
-    margin-bottom: -40px;
   }
 
   /* Name */
@@ -50,7 +51,7 @@ const SLayoutHeader = styled.header`
 `;
 
 const SStickyHeader = styled.div`
-  @keyframes slideInFromTop {
+  @keyframes slideIn {
     0% {
       transform: translateY(-100%);
     }
@@ -58,8 +59,20 @@ const SStickyHeader = styled.div`
       transform: translateY(0);
     }
   }
-  /* This section calls the slideInFromLeft animation we defined above */
-  animation: 0.3s ease 0s 1 slideInFromTop;
+
+  @keyframes slideOut {
+    0% {
+      transform: translateY(0);
+    }
+    100% {
+      transform: translateY(-100%);
+    }
+  }
+
+  animation: 0.3s ease 0s 1
+    ${(props) => (props.sticky ? "slideIn" : "slideOut")};
+
+  ${(props) => (!props.sticky ? "transform: translateY(-100%)" : "")};
   display: flex;
   flex-direction: column;
   align-items: flex-end;
@@ -108,6 +121,9 @@ const SLayoutImageHeader = styled.div`
     ),
     linear-gradient(to bottom, var(--color-highlight), black, darkgrey, white);
   justify-content: center;
+
+  transition: all 0.8s;
+  ${(props) => (props.fade ? "opacity: 0.2" : "opacity:1")};
 `;
 
 export const Layout = ({
@@ -118,6 +134,7 @@ export const Layout = ({
   home?: boolean;
 }) => {
   const [shrinkNav, setShrinkNav] = useState<boolean>(false);
+  const [fadeHeader, setFadeHeader] = useState<boolean>(false);
 
   const scrollHandler = () => {
     // Delay function to avoid overlapping resizing.
@@ -125,21 +142,41 @@ export const Layout = ({
       setShrinkNav((shrinkNav) => {
         if (
           !shrinkNav &&
-          (document.body.scrollTop > 250 ||
-            document.documentElement.scrollTop > 250)
+          (document.body.scrollTop > 140 ||
+            document.documentElement.scrollTop > 140)
         ) {
           return true;
         }
 
         if (
           shrinkNav &&
-          document.body.scrollTop < 10 &&
-          document.documentElement.scrollTop < 10
+          document.body.scrollTop < 120 &&
+          document.documentElement.scrollTop < 120
         ) {
           return false;
         }
 
         return shrinkNav;
+      });
+
+      setFadeHeader((fadeHeader) => {
+        if (
+          !fadeHeader &&
+          (document.body.scrollTop > 140 ||
+            document.documentElement.scrollTop > 140)
+        ) {
+          return true;
+        }
+
+        if (
+          fadeHeader &&
+          document.body.scrollTop < 120 &&
+          document.documentElement.scrollTop < 120
+        ) {
+          return false;
+        }
+
+        return fadeHeader;
       });
     }, TIMEOUT_DELAY);
   };
@@ -165,21 +202,21 @@ export const Layout = ({
         <meta name="og:title" content={siteTitle} />
         <meta name="twitter:card" content="summary_large_image" />
       </Head>
-      {shrinkNav ? (
-        <SStickyHeader>
-          <>
-            <h1>{`MP/${mainName.substring(4)}`}</h1>
-          </>
-        </SStickyHeader>
-      ) : null}
-      <SLayoutHeader>
+
+      <SStickyHeader sticky={shrinkNav}>
+        <>
+          <h1>{`MP/${mainName.substring(4)}`}</h1>
+        </>
+      </SStickyHeader>
+
+      <SLayoutHeader fade={fadeHeader}>
         <>
           <h2>{name}</h2>
           <h1>{mainName}</h1>
         </>
       </SLayoutHeader>
 
-      <SLayoutImageHeader>
+      <SLayoutImageHeader fade={fadeHeader}>
         <Image
           priority
           src="/images/profile.png"
