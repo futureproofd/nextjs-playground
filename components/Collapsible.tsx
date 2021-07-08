@@ -7,7 +7,7 @@ import styled from "styled-components";
 import CodeBlock from "./technical/CodeBlock";
 
 const STechnicalDetails = styled.div`
-  background-color: whitesmoke;
+  background-color: var(--color-subSection);
   border: 1px solid var(--color-subtleHighlight);
   border-width: thin;
   border-radius: 2px;

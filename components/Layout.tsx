@@ -5,6 +5,7 @@ import Link from "next/link";
 import styled from "styled-components";
 import { format } from "date-fns";
 import { useEffect, useState } from "react";
+import { ThemeToggler } from "./ThemeToggler";
 
 const name = "- Marcus Plienegger -";
 const mainName = `DEV/${format(new Date(), "yyyy")}`;
@@ -41,6 +42,7 @@ const SLayoutHeader = styled.header`
 
   /* Name */
   h2 {
+    color: var(--color-text);
     font-size: 1.2rem;
     font-family: wotfard;
     letter-spacing: 4px;
@@ -83,16 +85,16 @@ const SStickyHeader = styled.div`
       90deg,
       transparent,
       transparent 1px,
-      white 1px,
-      white 5px
+      var(--color-background) 1px,
+      var(--color-background) 5px
     ),
     linear-gradient(
       to right,
       var(--color-highlight),
-      white,
-      white,
-      white,
-      white
+      var(--color-background),
+      var(--color-background),
+      var(--color-background),
+      var(--color-background)
     );
   top: 0;
   right: 0;
@@ -116,10 +118,16 @@ const SLayoutImageHeader = styled.div`
       0deg,
       transparent,
       transparent 1px,
-      white 1px,
-      white 8px
+      var(--color-background) 1px,
+      var(--color-background) 8px
     ),
-    linear-gradient(to bottom, var(--color-highlight), black, darkgrey, white);
+    linear-gradient(
+      to bottom,
+      var(--color-highlight),
+      var(--color-topGradient),
+      var(--color-midGradient),
+      var(--color-background)
+    );
   justify-content: center;
 
   transition: all 0.8s;
@@ -136,6 +144,8 @@ export const Layout = ({
   const [shrinkNav, setShrinkNav] = useState<boolean>(false);
   const [fadeHeader, setFadeHeader] = useState<boolean>(false);
 
+  // TODO: these animations are cool, but find time to check out framer-motion library
+  // see https://github.com/siddharthkp/saturday
   const scrollHandler = () => {
     // Delay function to avoid overlapping resizing.
     setTimeout(() => {
@@ -208,7 +218,7 @@ export const Layout = ({
           <h1>{`MP/${mainName.substring(4)}`}</h1>
         </>
       </SStickyHeader>
-
+      <ThemeToggler />
       <SLayoutHeader fade={fadeHeader}>
         <>
           <h2>{name}</h2>

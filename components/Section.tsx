@@ -14,10 +14,15 @@ const SSectionTitle = styled.div`
   border-top: 1px solid;
   border-width: thin;
   top: 60px;
-  border-image: linear-gradient(to left, #e0e0e0, white) 1;
+  border-image: linear-gradient(
+      to left,
+      var(--color-subtleGradient),
+      var(--color-background)
+    )
+    1;
 
   h2 {
-    color: var(--color-black);
+    color: var(--color-text);
     font-weight: 400;
     font-size: 2.5rem;
     font-weight: 800;
@@ -38,9 +43,17 @@ const SSectionContents = styled.article`
     padding: 8px;
     padding-left: 16px;
     border-color: var(--color-subtleHighlight);
-    border-image: linear-gradient(to top, var(--color-subtleHighlight), #e0e0e0)
+    border-image: linear-gradient(
+        to top,
+        var(--color-subtleHighlight),
+        var(--color-background)
+      )
       1;
-    background-image: linear-gradient(to right, whitesmoke, white);
+    background-image: linear-gradient(
+      to right,
+      var(--color-subtleGradient),
+      var(--color-background)
+    );
 
     a::after {
       background: transparent url(/images/external_link.svg) 0 0 no-repeat;
@@ -61,7 +74,7 @@ const SSectionContents = styled.article`
     border-image: linear-gradient(
         to bottom,
         var(--color-subtleHighlight),
-        white
+        var(--color-background)
       )
       1;
     font-weight: 300;

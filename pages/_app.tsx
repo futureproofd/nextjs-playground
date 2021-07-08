@@ -1,16 +1,9 @@
 import { AppProps } from "next/dist/next-server/lib/router/router";
-import { createGlobalStyle, ThemeProvider } from "styled-components";
+import { createGlobalStyle } from "styled-components";
+// CSS Variables for color themes
+import "../styles/theme.css";
 
 const GlobalStyle = createGlobalStyle`
- html {
-    --color-text: #1e1e1e;
-    --color-subText: #474747;
-    --color-background: #fffefc;
-    --color-highlight: #391cdd;
-    --color-subtleHighlight: #9185d4; 
-    --color-link: #391cdd;
-  }
-
   /* Box sizing rules */
   *,
   *::before,
@@ -53,9 +46,11 @@ const GlobalStyle = createGlobalStyle`
 
   /* Set core body defaults */
   body {
+    background-color: var(--color-background);
     min-height: 100vh;
     text-rendering: optimizeLegibility;
     line-height: 1.6;
+    font-family: wotfard, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   }
 
   /* A elements that don't have a class get default styles */
@@ -95,21 +90,11 @@ const GlobalStyle = createGlobalStyle`
   }
 `;
 
-// todo create theme variants
-const theme = {
-  colors: {
-    background: "black",
-    primary: "#0070f3",
-  },
-};
-
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <>
-      <ThemeProvider theme={theme}>
-        <GlobalStyle />
-        <Component {...pageProps} />
-      </ThemeProvider>
+      <GlobalStyle />
+      <Component {...pageProps} />
     </>
   );
 }

@@ -21,15 +21,21 @@ export enum Sections {
   PROJECTS = "Projects",
 }
 
+// pages/home
+import { getGitHubData } from "./api/github";
+
 // List of React components to render within MDX
 const components: MdxRemote.Components = { Collapsible, GalleryImage };
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const allSectionsContent = await getAllSectionContent();
-  // TODO: get github projects and attach to props
+  const repos = await getGitHubData();
+
+  console.log(repos);
   return {
     props: {
       allSectionsContent,
+      repos,
     },
   };
 };
@@ -54,7 +60,11 @@ const renderSectionMetaData = (section: Sections, metaData) => {
     This function will initially render static content, and hydrate it when the browser isn't 
     busy with higher priority tasks.
 */
-const renderSectionContent = (section: Sections, allSectionsContent) => {
+const renderSectionContent = (
+  section: Sections,
+  allSectionsContent,
+  repos?: object[]
+) => {
   return allSectionsContent
     .filter((each) => each.section === section.toLowerCase())
     .map(({ id, startDate, endDate, title, position, url, contentHtml }) => (
@@ -79,30 +89,38 @@ Pages are associated with a route based on their file name. For example, in deve
 pages/index.js is associated with the / route.
 pages/posts/first-post.js is associated with the /posts/first-post route.
 */
-export default function Home({ allSectionsContent }) {
+export default function Home({ allSectionsContent, repos }) {
   return (
     <Layout home>
       <Head>
         <title>{siteTitle}</title>
+        <link
+          rel="preload"
+          href="/fonts/wotfard/wotfard-regular-webfont.woff2"
+          as="font"
+          crossOrigin=""
+        />
       </Head>
-      <link
-        rel="preload"
-        href="/fonts/wotfard/wotfard-regular-webfont.woff2"
-        as="font"
-        crossOrigin=""
-      />
-      <link
-        rel="preload"
-        href="/fonts/league/LeagueMono-Regular.woff2"
-        as="font"
-        crossOrigin=""
-      />
       <div>
-        {getSectionTitles().map((section: string) => (
-          <Section title={section}>
-            {renderSectionContent(section as Sections, allSectionsContent)}
-          </Section>
-        ))}
+        {getSectionTitles().map((section: string) => {
+          // Projects section contains repos from API call.
+          if (section === Sections.PROJECTS) {
+            return (
+              <Section title={section}>
+                {renderSectionContent(
+                  section as Sections,
+                  allSectionsContent,
+                  repos
+                )}
+              </Section>
+            );
+          }
+          return (
+            <Section title={section}>
+              {renderSectionContent(section as Sections, allSectionsContent)}
+            </Section>
+          );
+        })}
       </div>
     </Layout>
   );
